@@ -12,11 +12,6 @@ body{
     min-height:100vh;
     background:linear-gradient(135deg,#0f172a,#1e293b);
 }
-.title{
-    color:white;
-    text-align:center;
-    margin-bottom:15px;
-}
 
 .calculator{
     width:360px;
@@ -70,6 +65,7 @@ button:active{
 
 .operator{
     background:#f97316;
+    color:white;
 }
 
 .operator:hover{
@@ -78,6 +74,7 @@ button:active{
 
 #equals{
     background:#22c55e;
+    color:white;
 }
 
 #equals:hover{
@@ -86,4 +83,10 @@ button:active{
 
 .zero{
     grid-column:span 2;
+}
+
+@media(max-width:400px){
+    .calculator{
+        width:95%;
+    }
 }
