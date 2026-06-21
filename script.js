@@ -1,53 +1,79 @@
 const display = document.getElementById("display");
 const buttons = document.querySelectorAll("button");
 
-let expression = ""; // Stores the full mathematical expression
+let expression = "";
 
-// Function to evaluate the expression safely
 function calculate() {
-    if (expression.trim() === "") return; // Prevent evaluating empty input
+    if (expression.trim() === "") return;
 
     try {
         let result = eval(expression);
-        if (isNaN(result) || result === undefined || result === null) {
-            display.value = "Error"; // Handle invalid calculations
+
+        if (isNaN(result)) {
+            display.value = "Error";
             expression = "";
         } else {
-            expression = result.toString(); // Convert result to string
+            expression = result.toString();
             display.value = expression;
         }
-    } catch (error) {
-        display.value = "Error"; // Show "Error" on invalid expressions
+    } catch {
+        display.value = "Error";
         expression = "";
     }
 }
 
-// Add event listeners to buttons
 buttons.forEach(button => {
     button.addEventListener("click", () => {
-        const value = button.getAttribute("data-value");
+
+        const value = button.dataset.value;
 
         if (value === "C") {
             expression = "";
             display.value = "";
-        } else if (value === "=") {
+        }
+
+        else if (value === "DEL") {
+            expression = expression.slice(0, -1);
+            display.value = expression;
+        }
+
+        else if (value === "=") {
             calculate();
-        } else {
+        }
+
+        else if (value === "%") {
+            expression += "/100";
+            display.value = expression;
+        }
+
+        else {
             expression += value;
             display.value = expression;
         }
     });
 });
 
-// Keyboard Support
 document.addEventListener("keydown", (event) => {
-    if (!isNaN(event.key) || ["+", "-", "*", "/", "."].includes(event.key)) {
+
+    if (!isNaN(event.key) ||
+        ["+", "-", "*", "/", "."].includes(event.key)) {
+
         expression += event.key;
         display.value = expression;
-    } else if (event.key === "Enter") {
+    }
+
+    else if (event.key === "Enter" || event.key === "=") {
         calculate();
-    } else if (event.key === "Backspace") {
+    }
+
+    else if (event.key === "Backspace") {
         expression = expression.slice(0, -1);
         display.value = expression;
     }
+
+    else if (event.key === "Escape") {
+        expression = "";
+        display.value = "";
+    }
+
 });
