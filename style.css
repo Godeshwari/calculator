@@ -12,6 +12,11 @@ body{
     min-height:100vh;
     background:linear-gradient(135deg,#0f172a,#1e293b);
 }
+.title{
+    color:white;
+    text-align:center;
+    margin-bottom:15px;
+}
 
 .calculator{
     width:360px;
